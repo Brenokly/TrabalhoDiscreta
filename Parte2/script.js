@@ -1,7 +1,7 @@
 function resolverEquacao() {
-    const a = parseFloat(document.getElementById("a").value);
-    const b = parseFloat(document.getElementById("b").value);
-    const c = parseFloat(document.getElementById("c").value);
+    const a = parseFloat(document.getElementById("entrada1").value);
+    const b = parseFloat(document.getElementById("entrada2").value);
+    const c = parseFloat(document.getElementById("entrada3").value);
     const discriminante = b * b - 4 * a * c;
     let resultado = "";
 
@@ -19,7 +19,44 @@ function resolverEquacao() {
         let moduloP1 = parteReal * 2;
         let alpha1 = formatarAnguloNotavel(parteReal, parteImaginaria);
         let alpha2 = alpha1;
-        resultado = `3° caso - Discriminante menor que zero:<br>Xn = |${moduloP1}|^n * (K1 * cos(n*${alpha1}) + K2 * sen(n * ${alpha2}))`;
+        resultado = `3° caso - Discriminante menor que zero:<br>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <mrow>
+                <msub>
+                    <mi>X</mi>
+                    <mi>n</mi>
+                </msub>
+                <mo>=</mo>
+                <msup>
+                    <mn>|${moduloP1}|</mn>
+                    <mi>n</mi>
+                </msup>
+                <mspace width="thinmathspace" /><mo>*</mo><mspace width="thinmathspace" />
+                [<mi>K</mi>1
+                <mspace width="thinmathspace" />
+                <mo>*</mo>
+                <mspace width="thinmathspace" />
+                <p style="font-style: italic;">cos</p>
+                (<mi>n</mi>
+                <mspace width="thinmathspace" />
+                <mo>*</mo>
+                <mspace width="thinmathspace" />
+                (<mn>${alpha1}</mn>))
+                <mspace width="thinmathspace" />
+                <mo>+</mo>
+                <mspace width="thinmathspace" />
+                <mi>K</mi>2
+                <mspace width="thinmathspace" />
+                <mo>*</mo>
+                <mspace width="thinmathspace" />
+                <p style="font-style: italic;">sen</p>
+                (<mi>n</mi>
+                <mspace width="thinmathspace" />
+                <mo>*</mo>
+                <mspace width="thinmathspace" />
+                (<mn>${alpha2}</mn>))]
+            </mrow>
+        </math>`;
     } else {
         let raiz = `(-${Math.abs(b)} / ${2 * a})`;
         if (b < 0) {

@@ -1,0 +1,79 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #f0f0f0;
+}
+
+h1 {
+    margin-top: 20px;
+    font-size: 20px;
+    font-weight: bold;
+    padding-left: 10px;
+}
+
+#input-containers {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 5px;
+    margin: 20px auto;
+    width: 600px;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.entrada {
+    grid-column: auto;
+}
+
+input[type="text"] {
+    width: 200px;
+}
+
+.button1 {
+    grid-column: span 3;
+    margin-top: 20px;
+}
+
+.button1 > button {
+    border-radius: 4.5px;
+    background-color: #0066ff;
+    border: none;
+    color: #FFFFFF;
+    text-align: center;
+    font-size: 16px;
+    padding: 7px;
+    width: 100px;
+    transition: all 0.5s;
+    cursor: pointer;
+    margin: 5px;
+}
+  
+.button1 > button span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+}
+  
+.button1 > button span:after {
+    content: '\00bb';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.5s;
+}
+  
+.button1 > button:hover span {
+    padding-right: 25px;
+  }
+  
+.button1 > button:hover span:after {
+    opacity: 1;
+    right: 0;
+}
+
+.resultado {
+    margin-top: 20px;
+}

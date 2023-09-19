@@ -30,12 +30,12 @@ input[type="text"] {
     width: 200px;
 }
 
-.button1 {
+#button1 {
     grid-column: span 3;
     margin-top: 20px;
 }
 
-.button1 > button {
+#button1 > button {
     border-radius: 4.5px;
     background-color: #0066ff;
     border: none;
@@ -49,14 +49,14 @@ input[type="text"] {
     margin: 5px;
 }
   
-.button1 > button span {
+#button1 > button span {
     cursor: pointer;
     display: inline-block;
     position: relative;
     transition: 0.5s;
 }
   
-.button1 > button span:after {
+#button1 > button span:after {
     content: '\00bb';
     position: absolute;
     opacity: 0;
@@ -65,15 +65,25 @@ input[type="text"] {
     transition: 0.5s;
 }
   
-.button1 > button:hover span {
+#button1 > button:hover span {
     padding-right: 25px;
   }
   
-.button1 > button:hover span:after {
+#button1 > button:hover span:after {
     opacity: 1;
     right: 0;
 }
 
 .resultado {
     margin-top: 20px;
+}
+
+input[type=number]::-webkit-inner-spin-button { 
+    -webkit-appearance: none;
+    
+}
+input[type=number] { 
+   -moz-appearance: textfield;
+   appearance: textfield;
+
 }

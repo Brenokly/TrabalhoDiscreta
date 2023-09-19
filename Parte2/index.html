@@ -6,30 +6,29 @@
     <title>Resolutor de Equação de Recorrência</title>
     <link rel="stylesheet" href="style.css">
     <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-</head>
-<body>
-    <h1>Resolutor de Equação de Recorrência</h1>
-    <div id="input-containers">
-        <div class="entrada">
-            <label for="entrada1">Coeficiente a:</label>
-            <input type="number" id="entrada1" placeholder="Digite o coeficiente a">
-        </div>
-        <div class="entrada">
-            <label for="entrada2">Coeficiente b:</label>
-            <input type="number" id="entrada2" placeholder="Digite o coeficiente b">
-        </div>
-        <div class="entrada">
-            <label for="entrada3">Coeficiente c:</label>
-            <input type="number" id="entrada3" placeholder="Digite o coeficiente c">
-        </div>
-        <div class="button1">
-            <button onclick="resolverEquacao()"><span> Resolver</span></button>
-        </div>
-    </div>
-    <div class="resultado" id="resultado">
-        
-        <!-- A solução será exibida aqui -->
-    </div>
     <script src="script.js"></script>
-</body>
+</head>
+    <body>
+        <h1>Resolutor de Equação de Recorrência</h1>
+        <div id="input-containers">
+            <div class="entrada">
+                <label for="entrada1">Coeficiente a:</label>
+                <input type="number" id="entrada1" placeholder="1" value="1">
+            </div>
+            <div class="entrada">
+                <label for="entrada2">Coeficiente b:</label>
+                <input type="number" id="entrada2" placeholder="1" value="1">
+            </div>
+            <div class="entrada">
+                <label for="entrada3">Coeficiente c:</label>
+                <input type="number" id="entrada3" placeholder="1" value="1">
+            </div>
+            <div id="button1">
+                <button onclick="resolverEquacao()"><span> Resolver</span></button>
+            </div>
+        </div>
+        <div id="resultado">
+            <!-- A solução será exibida aqui -->
+        </div>
+    </body>
 </html>

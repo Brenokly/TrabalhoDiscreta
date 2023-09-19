@@ -6,63 +6,197 @@ function resolverEquacao() {
     let resultado = "";
 
     if (discriminante > 0) {
-        let raiz1 = `(-${Math.abs(b)} + √${discriminante}) / ${2 * a}`;
-        let raiz2 = `(-${Math.abs(b)} - √${discriminante}) / ${2 * a}`;
+        let operator1 = `-`;
+        let operator2 = `+`;
+        let operator3 = `-`;
+        let operator4 = `-`;
         if (b < 0) {
-            raiz1 = `(${Math.abs(b)} + √${discriminante}) / ${2 * a}`;
-            raiz2 = `(${Math.abs(b)} - √${discriminante}) / ${2 * a}`;
+            operator1 = ``;
+            operator3 = ``;
         }
-        resultado = `1° caso - Discriminante maior que zero:<br>Xn = C1 * (${raiz1})^n + C2 * (${raiz2})^n`;
+        resultado = `1° caso - Discriminante maior que zero:<br>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <mrow>
+                <msub>
+                <mi>X</mi>
+                <mi>n</mi>
+                </msub>
+                <mo>=</mo>
+                <msub>
+                    <mi>C</mi>
+                    <mn>1</mn>
+                </msub>
+                <mo>*</mo>
+                <msup>
+                    <mrow>
+                        <mo>(</mo>
+                        <mfrac>
+                            <mrow>
+                                <mrow>
+                                    <mrow>
+                                        <mo>|</mo>
+                                        <mo>${operator1}${Math.abs(b)}</mo>
+                                        <mo>|</mo>
+                                    </mrow>
+                                </mrow>
+                                <mo>${operator2}</mo>
+                                <mrow>
+                                    <msqrt>
+                                        <mi>${discriminante}</mi>
+                                    </msqrt>
+                                </mrow>
+                                <mo>)</mo>
+                            </mrow>
+                            <mrow>
+                                <mn>2</mn>
+                                <mi>a</mi>
+                            </mrow>
+                        </mfrac>
+                        <mo>)</mo>
+                    </mrow>
+                    <mi>n</mi>
+                </msup>
+                <mo>+</mo>
+                <msub>
+                    <mi>C</mi>
+                    <mn>2</mn>
+                </msub>
+                <mo>*</mo>
+                <msup>
+                    <mrow>
+                        <mo>(</mo>
+                        <mfrac>
+                            <mrow>
+                                <mrow>
+                                    <mrow>
+                                        <mo>|</mo>
+                                        <mo>${operator3}${Math.abs(b)}</mo>
+                                        <mo>|</mo>
+                                    </mrow>
+                                </mrow>
+                                <mo>${operator4}</mo>
+                                <mrow>
+                                <msqrt>
+                                    <mi>${discriminante}</mi>
+                                </msqrt>
+                                </mrow>
+                                <mo>)</mo>
+                            </mrow>
+                            <mrow>
+                                <mn>2</mn>
+                                <mi>a</mi>
+                            </mrow>
+                        </mfrac>
+                        <mo>)</mo>
+                    </mrow>
+                    <mi>n</mi>
+                </msup>
+            </mrow>
+            </math>`;
     } else if (discriminante < 0) {
         const parteReal = -b / (2 * a);
         const parteImaginaria = Math.sqrt(-discriminante) / (2 * a);
         let moduloP1 = parteReal * 2;
-        let alpha1 = formatarAnguloNotavel(parteReal, parteImaginaria);
-        let alpha2 = alpha1;
+        moduloP1 = moduloP1.toFixed(2);
+        let alpha = formatarAnguloNotavel(parteReal, parteImaginaria);
         resultado = `3° caso - Discriminante menor que zero:<br>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <msub>
+                <mi>X</mi>
+                <mi>n</mi>
+            </msub>
+            <mo>=</mo>
+            <msup>
+                <mrow>
+                    <mo>|</mo>
+                    <mi>${moduloP1}</mi>
+                    <mo>|</mo>
+                </mrow>
+                <mi>n</mi>
+            </msup>
+            <mo>*</mo>
+            <msub>
+                <mi>K</mi>
+                <mn>1</mn>
+            </msub>
+            <mo>*</mo>
+            <mi>cos</mi>
+            <mo>(</mo>
+            <mn>${alpha}</mn>
+            <mi>n</mi>
+            <mo>)</mo>
+            <mo>+</mo>
+            <msub>
+                <mi>K</mi>
+                <mn>2</mn>
+            </msub>
+            <mo>*</mo>
+            <mi>sen</mi>
+            <mo>(</mo>
+            <mn>${alpha}</mn>
+            <mi>n</mi>
+            <mo>)</mo>
+        </math>`;
+    } else {
+        let operator1 = `-`;
+        if (b < 0) {
+            operator1 = ``;
+        }
+        resultado = `2° caso - Discriminante igual a zero:<br>
         <math xmlns="http://www.w3.org/1998/Math/MathML">
             <mrow>
                 <msub>
-                    <mi>X</mi>
-                    <mi>n</mi>
+                <mi>X</mi>
+                <mi>n</mi>
                 </msub>
                 <mo>=</mo>
+                <msub>
+                    <mi>C</mi>
+                    <mn>1</mn>
+                </msub>
+                <mo>*</mo>
                 <msup>
-                    <mn>|${moduloP1}|</mn>
+                    <mrow>
+                        <mo>(</mo>
+                        <mfrac>
+                            <mrow>
+                                <mo>${operator1}${Math.abs(b)}</mo>
+                            </mrow>
+                            <mrow>
+                                <mn>2</mn>
+                                <mi>a</mi>
+                            </mrow>
+                        </mfrac>
+                        <mo>)</mo>
+                    </mrow>
                     <mi>n</mi>
                 </msup>
-                <mspace width="thinmathspace" /><mo>*</mo><mspace width="thinmathspace" />
-                [<mi>K</mi>1
-                <mspace width="thinmathspace" />
-                <mo>*</mo>
-                <mspace width="thinmathspace" />
-                <p style="font-style: italic;">cos</p>
-                (<mi>n</mi>
-                <mspace width="thinmathspace" />
-                <mo>*</mo>
-                <mspace width="thinmathspace" />
-                (<mn>${alpha1}</mn>))
-                <mspace width="thinmathspace" />
                 <mo>+</mo>
-                <mspace width="thinmathspace" />
-                <mi>K</mi>2
-                <mspace width="thinmathspace" />
+                <msub>
+                    <mi>C</mi>
+                    <mn>2</mn>
+                </msub>
                 <mo>*</mo>
-                <mspace width="thinmathspace" />
-                <p style="font-style: italic;">sen</p>
-                (<mi>n</mi>
-                <mspace width="thinmathspace" />
+                <mi>n</mi>
                 <mo>*</mo>
-                <mspace width="thinmathspace" />
-                (<mn>${alpha2}</mn>))]
+                <msup>
+                    <mrow>
+                        <mo>(</mo>
+                        <mfrac>
+                            <mrow>
+                                <mo>${operator1}${Math.abs(b)}</mo>
+                            </mrow>
+                            <mrow>
+                                <mn>2</mn>
+                                <mi>a</mi>
+                            </mrow>
+                        </mfrac>
+                        <mo>)</mo>
+                    </mrow>
+                    <mi>n</mi>
+                </msup>
             </mrow>
-        </math>`;
-    } else {
-        let raiz = `(-${Math.abs(b)} / ${2 * a})`;
-        if (b < 0) {
-            raiz = `(${Math.abs(b)} / ${2 * a})`;
-        }
-        resultado = `2° caso - Discriminante igual a zero:<br>Xn = C1 * (${raiz})^n + C2 * n * (${raiz})^n`;
+            </math>`;
     }
 
     document.getElementById("resultado").innerHTML = resultado;

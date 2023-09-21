@@ -1,7 +1,154 @@
 body {
     font-family: Arial, sans-serif;
     text-align: center;
-    margin: 0;
-    padding: 0;
     background-color: #f0f0f0;
+}
+
+.tipo-funcao {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 15px;
+    border-radius: 5px;
+    margin: 20px auto;
+    width: 800px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+h1 {
+    margin-top: 20px;
+    font-size: 20px;
+    font-weight: bold;
+    padding-left: 10px;
+    grid-column: span 2;
+    margin-bottom: 10px;
+}
+
+h3 {
+    margin-top: 30px;
+    font-size: 15px;
+    font-weight: bold;
+    padding-left: 10px;
+    grid-column: span 2;
+    margin-bottom: 17px;
+}
+
+h5 {
+    margin-bottom: 7px;
+}
+
+#entradas1, #entradas3 {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+#entradas2 {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+#entradas4 {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.entrada {
+    grid-column: span 1;
+}
+
+#entrada3 {
+    grid-column: span 2;
+    padding-top: 15px;
+}
+
+.label-entrada {
+    margin: 0px;
+}
+
+.botao-saida {
+    grid-column: span 3;
+    border-radius: 4.5px;
+    background-color: #0066ff;
+    border: none;
+    color: #FFFFFF;
+    text-align: center;
+    font-size: 16px;
+    padding: 7px;
+    width: 100px;
+    transition: all 0.5s;
+    cursor: pointer;
+    margin: 5px;
+}
+  
+.botao-saida > span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+}
+  
+.botao-saida span:after {
+    content: '\00bb';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.5s;
+}
+  
+.botao-saida:hover span {
+    padding-right: 25px;
+  }
+  
+.botao-saida:hover span:after {
+    opacity: 1;
+    right: 0;
+}
+
+.formula-temp {
+    grid-column: span 2;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.saida-cod, .saida-decod {
+    grid-column: span 2;
+    margin-top: 17px;
+    margin-bottom: 17px;
+}
+
+/* Consertar hover
+#cod-primeiro-grau, #cod-segundo-grau {
+    position: relative;
+    background-color: black;
+    color: transparent;
+    padding: 10px;
+    display: inline-block;
+    margin: 5px;
+}
+
+#cod-primeiro-grau::before, #cod-segundo-grau::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: white;
+    background-color: inherit;
+    padding: 10px;
+    transition: opacity 0.3s;
+    opacity: 0;
+}
+
+#cod-primeiro-grau:hover::before, #cod-segundo-grau::hover::before {
+    opacity: 1;
+}
+*/
+
+input[type=number]::-webkit-inner-spin-button { 
+    -webkit-appearance: none;
+    
+}
+input[type=number] { 
+   -moz-appearance: textfield;
+   appearance: textfield;
+
 }

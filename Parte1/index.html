@@ -1,15 +1,112 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resolutor de Equação de Recorrência</title>
-    <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-    <div class="input-container">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Resolutor de Equação de Recorrência</title>
+        <link rel="stylesheet" href="style.css">
+        <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script src="script.js"></script>
+    </head>
+    <body>
+        <div class="tipo-funcao">
+            <h1>Funções de primeiro grau</h1>
+            <div class="cod">
+                <h3>Codificador</h3>
+                <div id="entradas1">
+                    <div class="entrada">
+                        <p class="label-entrada">Digite o valor de a:</p>
+                        <input type="number" id="e1" placeholder="0" value="0" oninput="preencheFormulaPrimeiroGrau()">
+                    </div>
+                    <div class="entrada">
+                        <p class="label-entrada">Digite o valor de b:</p>
+                        <input type="number" id="e2" placeholder="0" value="0" oninput="preencheFormulaPrimeiroGrau()">
+                    </div>
+                </div>
+                <div class="formula-temp">
+                    <h5>Fórmula:</h5>
+                    <div id="formulaPrimeiroGrau">
+                        <!-- Formula será aqui -->
+                    </div>
+                </div>
+                <div id="frase1">
+                    <p class="label-entrada">Digite a frase:</p>
+                    <input type="number" id="e6" placeholder="0" value="0">
+                </div>
+                <button class="botao-saida" onclick="calcularCodPrimeiroGrau()"><span>Codificar</span></button>
+                <div class="saida-cod">
+                    <p id="cod-primeiro-grau"></p>
+                    <!-- Saida será aqui, colocar como código -->
+                </div>
+            </div>
+            <div class="decod">
+                <h3>Decodificador</h3>
+                <div id="entradas2">
+                    
+                    <!-- Fazer entrada dos decod aqui -->
 
-    </div>
-    <script src="js/script.js"></script>
-</body>
+                </div>
+                
+                <button class="botao-saida" onclick="calcularDecodPrimeiroGrau()">Decodificar</button>
+                <div id="decod-primeiro-grau" class="saida-decod">
+                    <p id="decod-primeiro-grau"></p>
+                    <!-- Saida será aqui, colocar como código -->
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="tipo-funcao">
+            <h1>Funções de segundo grau</h1>
+            <div class="cod">
+                <h3>Codificador</h3>
+                <div id="entradas3">
+                    <div class="entrada">
+                        <p class="label-entrada">Digite o valor de a:</p>
+                        <input type="number" id="e3" placeholder="0" value="0" oninput="preencheFormulaSegundoGrau()">
+                    </div>
+                    <div class="entrada">
+                        <p class="label-entrada">Digite o valor de b:</p>
+                        <input type="number" id="e4" placeholder="0" value="0" oninput="preencheFormulaSegundoGrau()">
+                    </div>
+                    <div id="entrada3">
+                        <p class="label-entrada">Digite o valor de c:</p>
+                        <input type="number" id="e5" placeholder="0" value="0" oninput="preencheFormulaSegundoGrau()">
+                    </div>
+                </div>
+                <div class="formula-temp">
+                    <h5>Fórmula:</h5>
+                    <div id="formulaSegundoGrau">
+                        <!-- Formula será aqui -->
+                    </div>
+                </div>
+                <div id="frase3">
+                    <p class="label-entrada">Digite a frase:</p>
+                    <input type="number" id="e8" placeholder="0" value="0">
+                </div>
+                <button class="botao-saida" onclick="calcularCodSegundoGrau()"><span>Codificar</span></button>
+                <div id="cod-segundo-grau" class="saida-cod">
+                    <p id="cod-segundo-grau"></p>
+                    <!-- Saida será aqui, colocar como código -->
+                </div>
+            </div>
+            <div class="decod">
+                <h3>Decodificador</h3>
+                <div id="entradas4">
+                    <div class="entrada">
+                    
+                        <!-- Fazer entrada dos decod aqui -->
+
+                    </div>
+                </div>
+                <button class="botao-saida" onclick="calcularDecodSegundoGrau()">Decodificar</button>
+                <h3>Resultado:</h3>
+                <div id="decod-segundo-grau" class="saida-decod">
+                    <p id="decod-segundo-grau"></p>
+                    <!-- Saida será aqui, colocar como código -->
+                </div>
+            </div>
+        </div>
+    </body>
 </html>

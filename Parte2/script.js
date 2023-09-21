@@ -2,8 +2,9 @@ function resolverEquacao() {
     const a = parseFloat(document.getElementById("entrada1").value);
     const b = parseFloat(document.getElementById("entrada2").value);
     const c = parseFloat(document.getElementById("entrada3").value);
+    const doisa = 2 * a;
     const discriminante = b * b - 4 * a * c;
-    let resultado = "";
+    let resultado;
 
     if (discriminante > 0) {
         let operator1 = `-`;
@@ -48,8 +49,7 @@ function resolverEquacao() {
                                 <mo>)</mo>
                             </mrow>
                             <mrow>
-                                <mn>2</mn>
-                                <mi>a</mi>
+                                <mn>${doisa}</mn>
                             </mrow>
                         </mfrac>
                         <mo>)</mo>
@@ -83,8 +83,7 @@ function resolverEquacao() {
                                 <mo>)</mo>
                             </mrow>
                             <mrow>
-                                <mn>2</mn>
-                                <mi>a</mi>
+                                <mn>${doisa}</mn>
                             </mrow>
                         </mfrac>
                         <mo>)</mo>
@@ -163,8 +162,7 @@ function resolverEquacao() {
                                 <mo>${operator1}${Math.abs(b)}</mo>
                             </mrow>
                             <mrow>
-                                <mn>2</mn>
-                                <mi>a</mi>
+                                <mn>${doisa}</mn>
                             </mrow>
                         </mfrac>
                         <mo>)</mo>
@@ -187,8 +185,7 @@ function resolverEquacao() {
                                 <mo>${operator1}${Math.abs(b)}</mo>
                             </mrow>
                             <mrow>
-                                <mn>2</mn>
-                                <mi>a</mi>
+                                <mn>${doisa}</mn>
                             </mrow>
                         </mfrac>
                         <mo>)</mo>
@@ -207,21 +204,49 @@ function formatarAnguloNotavel(parteReal, parteImaginaria) {
     let valor = (Math.atan(parteImaginaria / parteReal) * (180 / Math.PI)).toFixed(2);
 
     if (valor >= 0 && valor < 15) { // 0
-        return "0";
+        return "";
     } else if (valor >= 15 && valor < 37.5) { // 30°
-        return "pi/6"
+        return `<math xmlns="http://www.w3.org/1998/Math/MathML">
+                    <mfrac>
+                        <mn>pi</mn>
+                        <mn>6</mn>
+                </math>`;
     } else if (valor >= 37.5 && valor < 52.5) { // 45°
-        return "pi/4"
+        return `<math xmlns="http://www.w3.org/1998/Math/MathML">
+                    <mfrac>
+                        <mn>pi</mn>
+                        <mn>4</mn>
+                </math>`;
     } else if (valor >= 52.5 && valor < 75) { // 60°
-        return "pi/3"
+        return `<math xmlns="http://www.w3.org/1998/Math/MathML">
+                    <mfrac>
+                        <mn>pi</mn>
+                        <mn>3</mn>
+                </math>`;
     } else if (valor >= 75 && valor < 105) { // 90°
-        return "pi/2"
+        return `<math xmlns="http://www.w3.org/1998/Math/MathML">
+                    <mfrac>
+                        <mn>pi</mn>
+                        <mn>6</mn>
+                </math>`;
     } else if (valor >= 105 && valor < 135) { // 120°
-        return "2pi/3"
+        return `<math xmlns="http://www.w3.org/1998/Math/MathML">
+                    <mfrac>
+                        <mn>2pi</mn>
+                        <mn>3</mn>
+                </math>`;
     } else if (valor >= 135 && valor < 142.5) { // 135°
-        return "3pi/4"
+        return `<math xmlns="http://www.w3.org/1998/Math/MathML">
+                    <mfrac>
+                        <mn>3pi</mn>
+                        <mn>4</mn>
+                </math>`;
     } else if (valor >= 142.5 && valor < 165) { // 150°
-        return "5pi/6"
+        return `<math xmlns="http://www.w3.org/1998/Math/MathML">
+                    <mfrac>
+                        <mn>5pi</mn>
+                        <mn>6</mn>
+                </math>`;
     } else if (valor >= 165 && valor <= 180) { // 180°
         return "pi"
     } else {

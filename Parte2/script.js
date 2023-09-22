@@ -16,7 +16,7 @@ function resolverEquacao() {
             operator3 = ``;
         }
         resultado = `1° caso - Discriminante maior que zero:<br>
-        <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <math>
             <mrow>
                 <msub>
                 <mi>X</mi>
@@ -99,7 +99,7 @@ function resolverEquacao() {
         moduloP1 = moduloP1.toFixed(2);
         let alpha = formatarAnguloNotavel(parteReal, parteImaginaria);
         resultado = `3° caso - Discriminante menor que zero:<br>
-        <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <math>
             <msub>
                 <mi>X</mi>
                 <mi>n</mi>
@@ -121,7 +121,9 @@ function resolverEquacao() {
             <mo>*</mo>
             <mi>cos</mi>
             <mo>(</mo>
-            <mn>${alpha}</mn>
+            <mrow>
+                ${alpha}
+            </mrow>
             <mi>n</mi>
             <mo>)</mo>
             <mo>+</mo>
@@ -132,7 +134,9 @@ function resolverEquacao() {
             <mo>*</mo>
             <mi>sen</mi>
             <mo>(</mo>
-            <mn>${alpha}</mn>
+            <mrow>
+                ${alpha}
+            </mrow>
             <mi>n</mi>
             <mo>)</mo>
         </math>`;
@@ -142,7 +146,7 @@ function resolverEquacao() {
             operator1 = ``;
         }
         resultado = `2° caso - Discriminante igual a zero:<br>
-        <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <math>
             <mrow>
                 <msub>
                 <mi>X</mi>
@@ -193,7 +197,7 @@ function resolverEquacao() {
                     <mi>n</mi>
                 </msup>
             </mrow>
-            </math>`;
+        </math>`;
     }
 
     document.getElementById("resultado").innerHTML = resultado;
@@ -202,54 +206,52 @@ function resolverEquacao() {
 // Função para exibir ângulos notáveis formatados como frações.
 function formatarAnguloNotavel(parteReal, parteImaginaria) {
     let valor = (Math.atan(parteImaginaria / parteReal) * (180 / Math.PI)).toFixed(2);
+    if (valor < 0) {
+        valor = -valor;
+    }
 
     if (valor >= 0 && valor < 15) { // 0
-        return "";
+        return `<mn>0</mn>`;
     } else if (valor >= 15 && valor < 37.5) { // 30°
-        return `<math xmlns="http://www.w3.org/1998/Math/MathML">
-                    <mfrac>
-                        <mn>pi</mn>
-                        <mn>6</mn>
-                </math>`;
+        return `<mfrac>
+                    <mn>pi</mn>
+                    <mn>6</mn>
+                </mfrac>`;
     } else if (valor >= 37.5 && valor < 52.5) { // 45°
-        return `<math xmlns="http://www.w3.org/1998/Math/MathML">
-                    <mfrac>
-                        <mn>pi</mn>
-                        <mn>4</mn>
-                </math>`;
+        return `<mfrac>
+                    <mn>pi</mn>
+                    <mn>4</mn>
+                </mfrac>`;
     } else if (valor >= 52.5 && valor < 75) { // 60°
-        return `<math xmlns="http://www.w3.org/1998/Math/MathML">
-                    <mfrac>
-                        <mn>pi</mn>
-                        <mn>3</mn>
-                </math>`;
+        return `<mfrac>
+                    <mn>pi</mn>
+                    <mn>3</mn>
+                </mfrac>`;
     } else if (valor >= 75 && valor < 105) { // 90°
-        return `<math xmlns="http://www.w3.org/1998/Math/MathML">
-                    <mfrac>
-                        <mn>pi</mn>
-                        <mn>6</mn>
-                </math>`;
+        return `<mfrac>
+                    <mn>pi</mn>
+                    <mn>2</mn>
+                </mfrac>`;
     } else if (valor >= 105 && valor < 135) { // 120°
-        return `<math xmlns="http://www.w3.org/1998/Math/MathML">
-                    <mfrac>
-                        <mn>2pi</mn>
-                        <mn>3</mn>
-                </math>`;
+        return `<mfrac>
+                    <mn>2pi</mn>
+                    <mn>3</mn>
+                </mfrac>`;
     } else if (valor >= 135 && valor < 142.5) { // 135°
-        return `<math xmlns="http://www.w3.org/1998/Math/MathML">
-                    <mfrac>
-                        <mn>3pi</mn>
-                        <mn>4</mn>
-                </math>`;
+        return `<mfrac>
+                    <mn>3pi</mn>
+                    <mn>4</mn>
+                </mfrac>`;
     } else if (valor >= 142.5 && valor < 165) { // 150°
-        return `<math xmlns="http://www.w3.org/1998/Math/MathML">
-                    <mfrac>
-                        <mn>5pi</mn>
-                        <mn>6</mn>
-                </math>`;
+        return `<mfrac>
+                    <mn>5pi</mn>
+                    <mn>6</mn>
+                </mfrac>`;
     } else if (valor >= 165 && valor <= 180) { // 180°
         return "pi"
-    } else {
+    } else if (valor >= 180 && valor < 195) { // 210° 
+    
+    else {
         return valor;
     }
 }   

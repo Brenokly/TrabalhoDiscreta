@@ -250,8 +250,11 @@ function formatarAnguloNotavel(parteReal, parteImaginaria) {
     } else if (valor >= 165 && valor <= 180) { // 180°
         return "pi"
     } else if (valor >= 180 && valor < 195) { // 210° 
-    
-    else {
+        return `<mfrac>
+                    <mn>7pi</mn>
+                    <mn>6</mn>
+                </mfrac>`;
+    } else {
         return valor;
     }
 }   

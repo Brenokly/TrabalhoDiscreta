@@ -16,15 +16,26 @@
         <h1><strong>Criptografia/Descriptografia</strong> por Cifra de César</h1>
         <p>Insira a mensagem que deseja <strong>criptografar</strong></p>
 
+        <form id="functionChoice">
+            <label>
+                <input type="radio" name="options" value="option1"> Função de 1º grau
+            </label>
+            <label>
+                <input type="radio" name="options" value="option2"> Função de 2º grau
+            </label>
+        </form>
+
         <div class="key-func">
             <p>Defina a <strong>chave</strong> de criptografia:</p>
             <p id="text-a">a = </p>
-            <input type="text" id="a" oninput="generateFunction()">
+            <input type="text" id="aValue" oninput="generateFirstDegreeFunction()">
             <p id="text-b">b = </p>
-            <input type="text" id="b" oninput="generateFunction()">
+            <input type="text" id="bValue" oninput="generateFirstDegreeFunction()">
+            <p class="cInput" id="text-c">c = </p>
+            <input type="text" class="cInput" id="cValue" oninput="generateFirstDegreeFunction()">
         </div>
 
-        <div id="function">
+        <div id="functionLocation">
             <!-- Função gerada ficará aqui -->
         </div>
 
@@ -35,7 +46,9 @@
             <button type="button" onclick="decrypt()"> Descriptografar </button>
         </div>
 
-        <div class="result"></div>
+        <div class="result">
+            <!-- String cifrada ficará aqui -->
+        </div>
 
         <code class="code-1">
             <span>0</span>

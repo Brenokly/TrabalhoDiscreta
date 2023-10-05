@@ -32,21 +32,24 @@ main strong {
     color: #fd092e;
 }
 
-main input {
-    height: 52px;
-    width: 600px;
-    border-radius: 8px;
-    padding: 10px 15px;
-    border: none;
-    margin-top: 36px;
-    background-color: #1C1B1B;
-    font-size: 16px;
-    color: #EEE;
-    outline: none;
-}
-
 input:focus {
     border: 1px solid #E83752;
+}
+
+#functionChoice {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 0px 5px 0px;
+}
+
+#functionChoice label {
+    font-size: 16px;
+    color: #747474;
+    margin: 0px 10px 0px 10px;
+}
+
+#functionChoice > input[type="radio"] {
+    transform: scale(0.01);
 }
 
 .key-func {
@@ -74,6 +77,11 @@ input:focus {
     margin-left: 3px;
     font-size: 12px;
     text-align: center;
+    border-radius: 8px;
+    border: none;
+    background-color: #1C1B1B;
+    color: #EEE;
+    outline: none;
 }
 
 main button {
@@ -145,12 +153,25 @@ main button+button {
     margin-left: 5px;
 }
 
-#text-b {
+#text-b, #text-c {
     margin-left: 10px;
 }
 
 #codeEncrypt {
     margin-top: 21px;
+    height: 52px;
+    width: 600px;
+    border-radius: 8px;
+    padding: 10px 15px;
+    border: none;
+    background-color: #1C1B1B;
+    font-size: 16px;
+    color: #EEE;
+    outline: none;
+}
+
+.cInput { /* Fazer a função mudar esse estado */
+    visibility: hidden;
 }
 
 code {

@@ -1,13 +1,93 @@
-const inputHTML = document.getElementById('codeEncrypt')
-const inputAHTML = document.getElementById('a')
-const inputBHTML = document.getElementById('b')
+const userInput = document.getElementById('codeEncrypt')
+const a = document.getElementById('aValue')
+const b = document.getElementById('bValue')
+const c = document.getElementById('cValue')
 const btnEncrypt = document.querySelector('.btnEncrypt')
-const resultHTML = document.querySelector('.result')
+const btnDecrypt = document.querySelector('.btnDecrypt')
+const functionLocation = document.getElementById('functionLocation')
+const resultDiv = document.querySelector('.result')
+
+const getSelectedOption = () => {
+    //get all radio inputs with the same name
+    const functionChoice = document.querySelectorAll('input[name="options"]');
+
+    //loop through the radio inputs to find the selected one
+    let selectedOption;
+    functionChoice.forEach(input => {
+        if (input.checked) {
+            selectedOption = input.value;
+        }
+    });
+
+    return selectedOption;
+}
+
+const generateFirstDegreeFunction = () => {
+    let valueA = a.value;
+    let valueB = b.value;
+    let valueC = c.value;
+
+    let firstDegreeFunction = ``;
+    let value1 = ``;
+    let value2 = ``;
+    let operationA = ``;
+    let operationB = ``;
+    let hasA = true;
+    let hasB = true;
+
+    if (valueA > 0) {
+        value1 = `${valueA}x`;
+    } else if (valueA < 0) {
+        value1 = `${valueA * -1}x`;
+        operationA = `-`;
+    } else if (valueA == 0) {
+        value1 = ``;
+        hasA = false;
+    }
+
+
+    if (valueB > 0 && hasA) {
+        value2 = `${valueB}`;
+        operationB = `+`;
+    } else if (valueB > 0 && !hasA) {
+        value2 = `${valueB}`;
+    } else if ((valueB < 0 && hasA) || (valueB < 0 && !hasA)) {
+        value2 = `${valueB * -1}`;
+        operationB = `-`;
+    } else if (valueB == 0) {
+        hasB = false;
+    }
+
+    firstDegreeFunction = `<math>
+                    <msub>
+                        <mi>F</mi>
+                        <mi>(x)</mi>
+                    </msub>
+                    <mo>=</mo>
+                    <mo>${operationA}</mo>
+                    <mrow>${value1}</mrow>
+                    <mo>${operationB}</mo>
+                    <mrow>${value2}</mrow>
+                </math>`;
+
+    if (!hasA && !hasB) {
+        firstDegreeFunction = `<math>
+                    <msub>
+                        <mi>F</mi>
+                        <mi>(x)</mi>
+                    </msub>
+                    <mo>=</mo>
+                    <mn>0</mn>
+                </math>`;
+    }
+
+    functionLocation.innerHTML = firstDegreeFunction;
+}
 
 // tabela de caracteres para criptografia
 // divididos por positivos e negativos
 const TABLECHARACTER = {
-    positive = {
+    positive: {
         '\t': '0', ' ': '1', '!': '2', '"': '3', '#': '4', '$': '5', '%': '6', '&': '7', '\'': '8', '(': '9',
         ')': '10', '*': '11', '+': '12', ',': '13', '-': '14', '.': '15', '/': '16', '0': '17', '1': '18', '2': '19', '3': '20',
         '4': '21', '5': '22', '6': '23', '7': '24', '8': '25', '9': '26', ':': '27', ';': '28', '<': '29',
@@ -31,7 +111,7 @@ const TABLECHARACTER = {
         'ý': '204', 'Ý': '205', '¯': '206', '´': '207', '¬': '208', '±': '209', '¦': '210', '§': '211', '÷': '212', '¨': '213',
         '·': '214', '¸': '215', '¹': '216', '³': '217', '²': '218', '■': '219', '▒': '220', '▓': '221'
     },
-    negative = {
+    negative: {
         '\t': '0', ' ': '-1', '!': '-2', '"': '-3', '#': '-4', '$': '-5', '%': '-6', '&': '-7', '\'': '-8', '(': '-9',
         ')': '-10', '*': '-11', '+': '-12', ',': '-13', '-': '-14', '.': '-15', '/': '-16', '0': '-17', '1': '-18', '2': '-19', '3': '-20',
         '4': '-21', '5': '-22', '6': '-23', '7': '-24', '8': '-25', '9': '-26', ':': '-27', ';': '-28', '<': '-29',
@@ -54,13 +134,12 @@ const TABLECHARACTER = {
         'Ô': '-194', 'Ò': '-195', 'õ': '-196', 'Õ': '-197', 'µ': '-198', 'þ': '-199', 'Þ': '-200', 'Ú': '-201', 'Û': '-202', 'Ù': '-203',
         'ý': '-204', 'Ý': '-205', '¯': '-206', '´': '-207', '¬': '-208', '±': '-209', '¦': '-210', '§': '-211', '÷': '-212', '¨': '-213',
         '·': '-214', '¸': '-215', '¹': '-216', '³': '-217', '²': '-218', '■': '-219', '▒': '-220', '▓': '-221'
-    };
+    }
     
 }
 
 let numberTorDecrypt = []
-
-const encryptMessage = (messageToEncryptInChar) => { //recebe um array de caracteres para criptografar
+const originalMessage = (messageToEncryptInChar) => { //recebe um array de caracteres para criptografar
     let encryptedMessage = [];
     // pecorre os array com os caracetres
     messageToEncryptInChar.forEach((item) => {
@@ -82,9 +161,6 @@ const encryptMessage = (messageToEncryptInChar) => { //recebe um array de caract
     const encryptedMessageInChar = encryptedMessage.map((item) => {
 
     });
-
-
-
 
 
 }

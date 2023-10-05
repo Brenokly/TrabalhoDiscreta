@@ -22,10 +22,31 @@ const getSelectedOption = () => {
     return selectedOption;
 }
 
+const showCInput = () => {
+    if (getSelectedOption() == 'option2') {
+        for (let i = 0; i < document.getElementsByClassName('cInput').length; i++) {
+            document.getElementsByClassName('cInput')[i].style.visibility = 'visible';
+        }
+    } else if (getSelectedOption() == 'option1') {
+        for (let i = 0; i < document.getElementsByClassName('cInput').length; i++) {
+            document.getElementsByClassName('cInput')[i].style.visibility = 'hidden';
+        }
+    } else {
+        alert('Selecione uma opção válida!');
+    }
+}
+
+const chooseAndExecuteFunction = () => {
+    if (getSelectedOption() == 'option1') {
+        generateFirstDegreeFunction();
+    } else if (getSelectedOption() == 'option2') {
+        generateSecondDegreeFunction();
+    }
+}
+
 const generateFirstDegreeFunction = () => {
     let valueA = a.value;
     let valueB = b.value;
-    let valueC = c.value;
 
     let firstDegreeFunction = ``;
     let value1 = ``;
@@ -82,6 +103,93 @@ const generateFirstDegreeFunction = () => {
     }
 
     functionLocation.innerHTML = firstDegreeFunction;
+}
+
+const generateSecondDegreeFunction = () => {
+    let valueA = a.value;
+    let valueB = b.value;
+    let valueC = c.value;
+
+    let value1 = ``;
+    let value2 = ``;
+    let value3 = ``;
+    let operationB = ``;
+    let operationC = ``;
+    let hasA = true;
+    let hasB = true;
+    let hasC = true;
+
+    if (valueA > 0) {
+        value1 = `${valueA}x^2`;
+    } else if (valueA == 0) {
+        hasA = false;
+    }
+
+    if (valueB > 0) {
+        value2 = `${valueB}x`;
+        if (hasA) {
+            operationB = `+`;
+        } else {
+            operationB = ``;
+        }
+    } else if (valueB < 0) {
+        value2 = `${valueB * -1}x`;
+        operationB = `-`;
+    } else if (valueB == 0) {
+        hasB = false;
+    }
+
+    if (valueC > 0) {
+        value3 = `${valueC}`;
+        if (hasB) {
+            operationC = `+`;
+        } else if (hasA) {
+            operationC = `+`;
+        } else {
+            operationC = ``;
+        }
+    } else if (valueC < 0) {
+        value3 = `${valueC * -1}`;
+        operationC = `-`;
+    } else if (valueC == 0) {
+        hasC = false;
+    }
+
+    if (valueA < 0) {
+        hasA = false;
+        alert('Insira um valor válido para \'a\'!'); //valor de A nunca pode ser <= 0
+    }
+
+    let secondDegreeFunction = `<math>
+                    <msub>
+                        <mi>F</mi>
+                        <mi>(x)</mi>
+                    </msub>
+                    <mo>=</mo>
+                    <mrow>${value1}</mrow>
+                    <mo>${operationB}</mo>
+                    <mrow>${value2}</mrow>
+                    <mo>${operationC}</mo>
+                    <mrow>${value3}</mrow>
+                </math>`;
+    
+    if (valueA == 0 && hasB && hasC) {
+        alert('Insira um valor válido para \'a\'!'); //valor de A nunca pode ser <= 0
+    }
+    
+    if (!hasA && !hasB && !hasC) {
+        secondDegreeFunction = `<math>
+                    <msub>
+                        <mi>F</mi>
+                        <mi>(x)</mi>
+                    </msub>
+                    <mo>=</mo>
+                    <mn>0</mn>
+                </math>`;
+    }
+
+    functionLocation.innerHTML = secondDegreeFunction;
+
 }
 
 // tabela de caracteres para criptografia

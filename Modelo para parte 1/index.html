@@ -18,21 +18,25 @@
 
         <form id="functionChoice">
             <label>
-                <input type="radio" name="options" value="option1"> Função de 1º grau
+                <input type="radio" name="options" value="option1" oninput="showCInput(), chooseAndExecuteFunction()"> Função de 1º grau
             </label>
             <label>
-                <input type="radio" name="options" value="option2"> Função de 2º grau
+                <input type="radio" name="options" value="option2" oninput="showCInput(), chooseAndExecuteFunction()"> Função de 2º grau
             </label>
         </form>
+
+        <div id="mensagem-de-erro"> 
+            <p></p>
+        </div>
 
         <div class="key-func">
             <p>Defina a <strong>chave</strong> de criptografia:</p>
             <p id="text-a">a = </p>
-            <input type="text" id="aValue" oninput="generateFirstDegreeFunction()">
+            <input type="text" id="aValue" oninput="chooseAndExecuteFunction()">
             <p id="text-b">b = </p>
-            <input type="text" id="bValue" oninput="generateFirstDegreeFunction()">
+            <input type="text" id="bValue" oninput="chooseAndExecuteFunction()">
             <p class="cInput" id="text-c">c = </p>
-            <input type="text" class="cInput" id="cValue" oninput="generateFirstDegreeFunction()">
+            <input type="text" class="cInput" id="cValue" oninput="chooseAndExecuteFunction()">
         </div>
 
         <div id="functionLocation">

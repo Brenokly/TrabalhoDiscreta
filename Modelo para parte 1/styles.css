@@ -52,6 +52,8 @@ input:focus {
     transform: scale(0.01);
 }
 
+#
+
 .key-func {
     display: flex;
     align-items: center;
@@ -168,10 +170,6 @@ main button+button {
     font-size: 16px;
     color: #EEE;
     outline: none;
-}
-
-.cInput { /* Fazer a função mudar esse estado */
-    visibility: hidden;
 }
 
 code {

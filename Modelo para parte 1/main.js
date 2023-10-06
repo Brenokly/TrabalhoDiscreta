@@ -24,15 +24,17 @@ const getSelectedOption = () => {
 
 const showCInput = () => {
     if (getSelectedOption() == 'option2') {
+        mensagemDeErro(false);
         for (let i = 0; i < document.getElementsByClassName('cInput').length; i++) {
             document.getElementsByClassName('cInput')[i].style.visibility = 'visible';
         }
     } else if (getSelectedOption() == 'option1') {
+        mensagemDeErro(false);
         for (let i = 0; i < document.getElementsByClassName('cInput').length; i++) {
             document.getElementsByClassName('cInput')[i].style.visibility = 'hidden';
         }
     } else {
-        alert('Selecione uma opção válida!');
+        mensagemDeErro(true, 'Selecione uma opção!');
     }
 }
 
@@ -157,7 +159,9 @@ const generateSecondDegreeFunction = () => {
 
     if (valueA < 0) {
         hasA = false;
-        alert('Insira um valor válido para \'a\'!'); //valor de A nunca pode ser <= 0
+        mensagemDeErro(true, 'Insira um valor válido para \'a\'!'); //valor de A nunca pode ser <= 0
+    } else {
+        mensagemDeErro(false);
     }
 
     let secondDegreeFunction = `<math>
@@ -174,7 +178,9 @@ const generateSecondDegreeFunction = () => {
                 </math>`;
     
     if (valueA == 0 && hasB && hasC) {
-        alert('Insira um valor válido para \'a\'!'); //valor de A nunca pode ser <= 0
+        mensagemDeErro(true,'Insira um valor válido para \'a\'!'); //valor de A nunca pode ser <= 0
+    } else {
+        mensagemDeErro(false);
     }
     
     if (!hasA && !hasB && !hasC) {
@@ -190,6 +196,18 @@ const generateSecondDegreeFunction = () => {
 
     functionLocation.innerHTML = secondDegreeFunction;
 
+}
+
+const mensagemDeErro = (boolCheck, msg = "") => {
+    textErro = document.getElementById('texto-erro').innerHTML;
+    if (boolCheck) {
+        textErro.style.visibility = 'visible';
+        textErro.innerHTML = msg;
+    } else {
+        textErro.style.visibility = 'hidden';
+    }
+    
+    setTimeout(mensagemDeErro, 2000); //mantém o código rodando a cada 2 segundos
 }
 
 // tabela de caracteres para criptografia

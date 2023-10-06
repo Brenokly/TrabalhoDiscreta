@@ -52,12 +52,22 @@ input:focus {
     transform: scale(0.01);
 }
 
-#
+#mensagem-de-erro {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#mensagem-de-erro > p {
+    margin-top: 0px;
+    font-size: 10px;
+    color: #ff0026;
+}
 
 .key-func {
     display: flex;
     align-items: center;
-    margin-top: 16px;
+    margin-top: 12px;
     margin-bottom: 16px;
 }
 

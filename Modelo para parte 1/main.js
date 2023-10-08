@@ -1,11 +1,11 @@
-const userInput = document.getElementById('codeEncrypt')
+const userInput = document.getElementById('fraseEncrypt')
 const a = document.getElementById('aValue')
 const b = document.getElementById('bValue')
 const c = document.getElementById('cValue')
 const btnEncrypt = document.querySelector('.btnEncrypt')
 const btnDecrypt = document.querySelector('.btnDecrypt')
 const functionLocation = document.getElementById('functionLocation')
-const resultDiv = document.querySelector('.result')
+const result = document.getElementById('resultText')
 
 const getSelectedOption = () => {
     //get all radio inputs with the same name
@@ -46,7 +46,7 @@ const chooseAndExecuteFunction = () => {
     }
 }
 
-const generateFirstDegreeFunction = () => {
+function generateFirstDegreeFunction() {
     let valueA = a.value;
     let valueB = b.value;
 
@@ -59,7 +59,11 @@ const generateFirstDegreeFunction = () => {
     let hasB = true;
 
     if (valueA > 0) {
-        value1 = `${valueA}x`;
+        if (valueA == 1) {
+            value1 = `x`;
+        } else {
+            value1 = `${valueA}x`;
+        }
     } else if (valueA < 0) {
         value1 = `${valueA * -1}x`;
         operationA = `-`;
@@ -105,9 +109,11 @@ const generateFirstDegreeFunction = () => {
     }
 
     functionLocation.innerHTML = firstDegreeFunction;
+
+    encryptFirstDegree(userInput.value)
 }
 
-const generateSecondDegreeFunction = () => {
+function generateSecondDegreeFunction() {
     let valueA = a.value;
     let valueB = b.value;
     let valueC = c.value;
@@ -122,7 +128,11 @@ const generateSecondDegreeFunction = () => {
     let hasC = true;
 
     if (valueA > 0) {
-        value1 = `${valueA}<msup><mrow>x</mrow><mn>2</mn></msup>`;
+        if (valueA == 1) {
+            value1 = `<msup><mrow>x</mrow><mn>2</mn></msup>`;
+        } else {
+            value1 = `${valueA}<msup><mrow>x</mrow><mn>2</mn></msup>`;
+        }
     } else if (valueA == 0) {
         hasA = false;
     } else {
@@ -130,7 +140,11 @@ const generateSecondDegreeFunction = () => {
     }
 
     if (valueB > 0) {
-        value2 = `${valueB}x`;
+        if (valueB == 1) {
+            value2 = `x`;
+        } else {
+            value2 = `${valueB}x`;
+        }
         if (hasA) {
             operationB = `+`;
         } else {
@@ -257,29 +271,74 @@ const TABLECHARACTER = {
     
 }
 
-let numberTorDecrypt = []
-const originalMessage = (messageToEncryptInChar) => { //recebe um array de caracteres para criptografar
-    let encryptedMessage = [];
-    // pecorre os array com os caracetres
-    messageToEncryptInChar.forEach((item) => {
-        // cálculo para achar o número da criptografia
-        const number = (Number(a.value) * Number(TABLECHARACTER.positive[item])) + Number(b.value)
+const encrypt = () => {
+    if (getSelectedOption() == 'option1') {
+        encryptFirstDegree(userInput.value)
+    } else if (getSelectedOption() == 'option2') {
+        encryptSecondDegree(userInput.value)
+    }
+}
 
-        // verifica se está entre o range dos caracteres
-        if (number >= 1 && number <= 29) {
-            // salva, o char, o numero que está com char 
+const findK = () => {
+}
+
+const numberArrayToCharacterArray = (array) => {
+    let arrayToReturn = []
+
+    array.forEach((item) => {
+        if (item > 0) {
+            arrayToReturn.push(TABLECHARACTER.postivive[item])
+        } else {
+            arrayToReturn.push(TABLECHARACTER.negative[item])
+        }
+    });
+
+    return arrayToReturn
+}
+
+function encryptFirstDegree(messageToEncrypt) { //recebe um array de caracteres para criptografar
+    let encryptedMessage = [] //array para salvar a criptografia, salvará os numeros
+        
+    //pecorre os array original com os caracetres
+    messageToEncrypt.forEach((item) => {
+        //cálculo para achar o número da criptografia ax + b
+        const x = Number(TABLECHARACTER.positive[item])
+        const number = (Number(a.value) * x + Number(b.value)) //transforma o caractere em numero e aplica a função
+
+        //verifica se está entre o range dos caracteres
+        if (number >= 0 && number <= 221) {
+            //salva o novo char no array
             encryptedMessage.push(number)
         } else {
-            // cálculo um número que esteja entre o range de 1 e 29 (tamanho da tabela)
+            //acha k para encontrar um número que caiba na tabela
             const newNumber = findK(number)
             encryptedMessage.push(newNumber)
         }
+    });
+    
+    result.innerHTML = 'Olá mundo'
+    //result.innerHTML = numberArrayToCharacterArray(encryptedMessage)
+}
+
+function encryptSecondDegree(messageToEncrypt) { //recebe um array de caracteres para criptografar
+    let encryptedMessage = [] //array para salvar a criptografia, salvará os numeros
         
+    //pecorre os array original com os caracteres
+    messageToEncrypt.forEach((item) => {
+        //cálculo para achar o número da criptografia ax + b
+        const x = Number(TABLECHARACTER.positive[item])
+        const number = (Number(a.value) * x * x + Number(b.value) * x + Number(c.value)) //transforma o caractere em numero e aplica a função
+
+        //verifica se está entre o range dos caracteres
+        if (number >= 0 && number <= 221) {
+            //salva o novo char no array
+            encryptedMessage.push(number)
+        } else {
+            //acha k para encontrar um número que caiba na tabela
+            const newNumber = findK(number)
+            encryptedMessage.push(newNumber)
+        }
     });
 
-    const encryptedMessageInChar = encryptedMessage.map((item) => {
-
-    });
-
-
+    result.innerHTML = numberArrayToCharacterArray(encryptedMessage)
 }

@@ -59,7 +59,7 @@ input:focus {
 }
 
 #mensagem-de-erro > p {
-    margin-top: 0px;
+    margin-top: 5px;
     font-size: 10px;
     color: #ff0026;
 }

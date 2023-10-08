@@ -24,17 +24,17 @@ const getSelectedOption = () => {
 
 const showCInput = () => {
     if (getSelectedOption() == 'option2') {
-        mensagemDeErro(false);
+        errorMessage(false);
         for (let i = 0; i < document.getElementsByClassName('cInput').length; i++) {
             document.getElementsByClassName('cInput')[i].style.visibility = 'visible';
         }
     } else if (getSelectedOption() == 'option1') {
-        mensagemDeErro(false);
+        errorMessage(false);
         for (let i = 0; i < document.getElementsByClassName('cInput').length; i++) {
             document.getElementsByClassName('cInput')[i].style.visibility = 'hidden';
         }
     } else {
-        mensagemDeErro(true, 'Selecione uma opção!');
+        errorMessage(true, 'Selecione uma opção!');
     }
 }
 
@@ -122,8 +122,10 @@ const generateSecondDegreeFunction = () => {
     let hasC = true;
 
     if (valueA > 0) {
-        value1 = `${valueA}x^2`;
+        value1 = `${valueA}<msup><mrow>x</mrow><mn>2</mn></msup>`;
     } else if (valueA == 0) {
+        hasA = false;
+    } else {
         hasA = false;
     }
 
@@ -157,11 +159,10 @@ const generateSecondDegreeFunction = () => {
         hasC = false;
     }
 
-    if (valueA < 0) {
-        hasA = false;
-        mensagemDeErro(true, 'Insira um valor válido para \'a\'!'); //valor de A nunca pode ser <= 0
+    if (!hasA) { //por algum motivo, o hasA não está funcionando para apenas a inserção de b ou c
+        errorMessage(true, 'Insira um valor válido para \'a\'!');
     } else {
-        mensagemDeErro(false);
+        errorMessage(false);
     }
 
     let secondDegreeFunction = `<math>
@@ -178,9 +179,9 @@ const generateSecondDegreeFunction = () => {
                 </math>`;
     
     if (valueA == 0 && hasB && hasC) {
-        mensagemDeErro(true,'Insira um valor válido para \'a\'!'); //valor de A nunca pode ser <= 0
+        errorMessage(true,'Insira um valor válido para \'a\'!'); //valor de A nunca pode ser <= 0
     } else {
-        mensagemDeErro(false);
+        errorMessage(false);
     }
     
     if (!hasA && !hasB && !hasC) {
@@ -198,16 +199,14 @@ const generateSecondDegreeFunction = () => {
 
 }
 
-const mensagemDeErro = (boolCheck, msg = "") => {
-    textErro = document.getElementById('texto-erro').innerHTML;
+const errorMessage = (boolCheck, msg = "") => {
+    let textErro = document.getElementById('texto-erro');
     if (boolCheck) {
         textErro.style.visibility = 'visible';
         textErro.innerHTML = msg;
     } else {
         textErro.style.visibility = 'hidden';
     }
-    
-    setTimeout(mensagemDeErro, 2000); //mantém o código rodando a cada 2 segundos
 }
 
 // tabela de caracteres para criptografia
@@ -270,7 +269,7 @@ const originalMessage = (messageToEncryptInChar) => { //recebe um array de carac
     // pecorre os array com os caracetres
     messageToEncryptInChar.forEach((item) => {
         // cálculo para achar o número da criptografia
-        const number = (Number(inputAHTML.value) * Number(TABLECHARACTER.positive[item])) + Number(inputBHTML.value)
+        const number = (Number(a.value) * Number(TABLECHARACTER.positive[item])) + Number(b.value)
 
         // verifica se está entre o range dos caracteres
         if (number >= 1 && number <= 29) {

@@ -159,12 +159,6 @@ const generateSecondDegreeFunction = () => {
         hasC = false;
     }
 
-    if (!hasA) { //por algum motivo, o hasA não está funcionando para apenas a inserção de b ou c
-        errorMessage(true, 'Insira um valor válido para \'a\'!');
-    } else {
-        errorMessage(false);
-    }
-
     let secondDegreeFunction = `<math>
                     <msub>
                         <mi>F</mi>
@@ -178,8 +172,8 @@ const generateSecondDegreeFunction = () => {
                     <mrow>${value3}</mrow>
                 </math>`;
     
-    if (valueA == 0 && hasB && hasC) {
-        errorMessage(true,'Insira um valor válido para \'a\'!'); //valor de A nunca pode ser <= 0
+    if (!hasA) {
+        errorMessage(true,'Insira um valor válido para \'a\'!'); 
     } else {
         errorMessage(false);
     }

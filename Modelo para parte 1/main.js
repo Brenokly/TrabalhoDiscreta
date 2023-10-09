@@ -287,7 +287,7 @@ const numberArrayToCharacterArray = (array) => {
 
     array.forEach((item) => {
         if (item > 0) {
-            arrayToReturn.push(TABLECHARACTER.postivive[item])
+            arrayToReturn.push(TABLECHARACTER.positive[item])
         } else {
             arrayToReturn.push(TABLECHARACTER.negative[item])
         }
@@ -322,11 +322,11 @@ function encryptFirstDegree(messageToEncrypt) { //recebe um array de caracteres 
 
 function encryptSecondDegree(messageToEncrypt) { //recebe um array de caracteres para criptografar
     let encryptedMessage = [] //array para salvar a criptografia, salvará os numeros
-        
+
     //pecorre os array original com os caracteres
-    messageToEncrypt.forEach((item) => {
+    for (let i = 0; i < messageToEncrypt.length; i++) {
         //cálculo para achar o número da criptografia ax + b
-        const x = Number(TABLECHARACTER.positive[item])
+        const x = Number(TABLECHARACTER.positive[messageToEncrypt[i]])
         const number = (Number(a.value) * x * x + Number(b.value) * x + Number(c.value)) //transforma o caractere em numero e aplica a função
 
         //verifica se está entre o range dos caracteres
@@ -338,7 +338,7 @@ function encryptSecondDegree(messageToEncrypt) { //recebe um array de caracteres
             const newNumber = findK(number)
             encryptedMessage.push(newNumber)
         }
-    });
+    }
 
     result.innerHTML = numberArrayToCharacterArray(encryptedMessage)
 }

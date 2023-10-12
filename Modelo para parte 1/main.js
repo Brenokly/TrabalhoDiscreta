@@ -279,8 +279,6 @@ const encrypt = () => {
 }
 
 function findK (number) { //checar se está certo
-    let k = 0;
-    let newNumber = 0;
     if (number < 0) {
         while (newNumber < 0) {
             newNumber = number + (221 * k);
@@ -295,28 +293,28 @@ function findK (number) { //checar se está certo
     return newNumber;
 }
 
-const
-    numberArrayToCharacterArray = (array) => {
+const numberArrayToCharacterArray = (array) => {
     let characterArray = [];
-    for (let i = 0; i < array.length; i++) {
-        let character = "";
-        if (array[i] < 0 && array[i] > -222) { //TODO tablechar colection not working
-            //get equivalent value from TABLECHARACTER.negative
-            character = TABLECHARACTER.negative[array[i]];
-        } else if (array[i] >= 0 && array[i] < 222) {
-            //get equivalent value from TABLECHARACTER.positive
-            character = TABLECHARACTER.positive[array[i]];
+    array.forEach(element => {
+        if (element > 0) {
+        characterArray.push(getKeyByValue(TABLECHARACTER.positive, String(element)))
+        } else {
+            characterArray.push(getKeyByValue(TABLECHARACTER.negative, String(element)))
         }
-        characterArray.push(character);
-    }
-
-    result.innerHTML = characterArray.join("");
-
+    });
     return characterArray;
 }
 
+function getKeyByValue(object, value) {
+    for (var key in object) {
+        if (object[key] === value) {
+            return key;
+        }
+    }
+}
+
 const encryptFirstDegree = (messageToEncrypt) => { //recebe um array de caracteres para criptografar
-    let encryptedMessage = [] //array para salvar a criptografia, salvará os numeros
+    let encryptedMessage = [] //array com os números da mensagem cryptografada
         
     //pecorre os array original com os caracteres
     const messageArray = messageToEncrypt.split("");
@@ -326,44 +324,34 @@ const encryptFirstDegree = (messageToEncrypt) => { //recebe um array de caracter
         const number = (Number(a.value) * x + Number(b.value)) //transforma o caractere em numero e aplica a função
         //verifica se está entre o range dos caracteres
         if (number >= 0 && number <= 221) {
-            //salva o novo char no array
+            encryptedMessage.push(number)
+        } else if (number < 0 && number > -222) {
             encryptedMessage.push(number)
         } else {
             //acha k para encontrar um número que caiba na tabela
             const newNumber = findK(number)
             encryptedMessage.push(newNumber)
         }
-        encryptedMessage.forEach(element => {
-            console.log(getKeyByValue(TABLECHARACTER.positive, String(element)))
-        });
-        
     }
 
-    //result.innerHTML = 
-    result.innerHTML = numberArrayToCharacterArray(encryptedMessage)
-}
-
-function getKeyByValue(object, value) {
-    for (var key in object) {
-        if (object[key] === value) {
-            console.log(key)
-            return key;
-        }
-    }
+    encryptedMessage = numberArrayToCharacterArray(encryptedMessage);
+    encryptedMessage = encryptedMessage.join("");
+    result.innerHTML = encryptedMessage;
 }
 
 function encryptSecondDegree(messageToEncrypt) { //recebe um array de caracteres para criptografar
-    let encryptedMessage = [] //array para salvar a criptografia, salvará os numeros
-
+    let encryptedMessage = [] //array com os números da mensagem cryptografada
+        
     //pecorre os array original com os caracteres
-    for (let i = 0; i < messageToEncrypt.length; i++) {
-        //cálculo para achar o número da criptografia ax + b
-        const x = Number(TABLECHARACTER.positive[messageToEncrypt[i]])
+    const messageArray = messageToEncrypt.split("");
+    for (let i = 0; i < messageArray.length; i++) {
+        //cálculo para achar o número da criptografia ax^2 + bx + c
+        const x = Number(TABLECHARACTER.positive[messageArray[i]])
         const number = (Number(a.value) * x * x + Number(b.value) * x + Number(c.value)) //transforma o caractere em numero e aplica a função
-
         //verifica se está entre o range dos caracteres
         if (number >= 0 && number <= 221) {
-            //salva o novo char no array
+            encryptedMessage.push(number)
+        } else if (number < 0 && number > -222) {
             encryptedMessage.push(number)
         } else {
             //acha k para encontrar um número que caiba na tabela
@@ -372,5 +360,7 @@ function encryptSecondDegree(messageToEncrypt) { //recebe um array de caracteres
         }
     }
 
-    result.innerHTML = numberArrayToCharacterArray(encryptedMessage)
+    encryptedMessage = numberArrayToCharacterArray(encryptedMessage);
+    encryptedMessage = encryptedMessage.join("");
+    result.innerHTML = encryptedMessage;
 }

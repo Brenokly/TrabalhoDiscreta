@@ -7,6 +7,8 @@ const btnDecrypt = document.querySelector('.btnDecrypt')
 const functionLocation = document.getElementById('functionLocation')
 const result = document.getElementById('resultText')
 
+let kValues = new Map();
+
 const errorMessage = (boolCheck, msg = "") => {
     let textErro = document.getElementById('texto-erro');
     if (boolCheck) {
@@ -45,14 +47,6 @@ const showCInput = () => {
         }
     } else {
         errorMessage(true, 'Selecione uma opção!');
-    }
-}
-
-const chooseAndExecuteFunction = () => {
-    if (getSelectedOption() == 'option1') {
-        generateFirstDegreeFunction();
-    } else if (getSelectedOption() == 'option2') {
-        generateSecondDegreeFunction();
     }
 }
 
@@ -120,7 +114,6 @@ function generateFirstDegreeFunction() {
 
     functionLocation.innerHTML = firstDegreeFunction;
 
-    encryptFirstDegree(userInput.value)
 }
 
 function generateSecondDegreeFunction() {
@@ -215,7 +208,6 @@ function generateSecondDegreeFunction() {
 
     functionLocation.innerHTML = secondDegreeFunction;
 
-    encryptSecondDegree(userInput.value)
 }
 
 const TABLECHARACTER = { //trocar a ordem dos key values para conteúdo
@@ -278,26 +270,21 @@ const encrypt = () => {
     }
 }
 
-function findK (number) { //checar se está certo
+function findK(number) {
+        
     let newNumber = number;
     let k = 0;
-
     if (newNumber < 0) {
         newNumber = newNumber * -1;
-    }  
-
+    } 
     while (Number.isInteger(newNumber - 221) && (newNumber - 221) > 0) {
         newNumber = newNumber - 221;
         k++;
     }
 
+    kValues.set(k, newNumber);
     return newNumber;
 }
-
-//testar findk
-let numberk = 0;
-numberk = findK(222);
-console.log(numberk);
 
 const numberArrayToCharacterArray = (array) => {
     let characterArray = [];
@@ -309,6 +296,9 @@ const numberArrayToCharacterArray = (array) => {
         }
     });
     return characterArray;
+
+    let knum = findK(12808)
+    console.log(knum)
 }
 
 function getKeyByValue(object, value) {
@@ -319,7 +309,7 @@ function getKeyByValue(object, value) {
     }
 }
 
-const encryptFirstDegree = (messageToEncrypt) => { //recebe um array de caracteres para criptografar
+const encryptFirstDegree = (messageToEncrypt) => {
     let encryptedMessage = [] //array com os números da mensagem cryptografada
         
     //pecorre os array original com os caracteres
@@ -345,7 +335,7 @@ const encryptFirstDegree = (messageToEncrypt) => { //recebe um array de caracter
     result.innerHTML = encryptedMessage;
 }
 
-function encryptSecondDegree(messageToEncrypt) { //recebe um array de caracteres para criptografar
+const encryptSecondDegree = (messageToEncrypt) => { 
     let encryptedMessage = [] //array com os números da mensagem cryptografada
         
     //pecorre os array original com os caracteres
@@ -370,3 +360,59 @@ function encryptSecondDegree(messageToEncrypt) { //recebe um array de caracteres
     encryptedMessage = encryptedMessage.join("");
     result.innerHTML = encryptedMessage;
 }
+
+function hasKCorrespondentValue(number) {
+    let hasK = 0
+    kValues.forEach((value, key) => {
+        if (value == number) {
+            hasK = key;
+        }
+    });
+    return hasK;
+}
+
+function applyInInverseFunction(x) {
+    let y = 0
+
+    if (getSelectedOption() == 'option1') {
+        y = ((x - b.value)/a.value)
+    }
+    else if (getSelectedOption() == 'option2') {
+        let variavel1 = (-b.value / (2 * a.value))
+        let variavel2 = (x - ((4 * a.value * c.value - (b.value * b.value)) / (4 * a.value)))
+        let variavel3 = Math.sqrt((1/a.value) * variavel2)
+        y = Math.round(variavel1 + variavel3)
+    }
+    
+    return y;
+}
+
+const decrypt = () => {
+    messageToDecrypt = userInput.value
+    let decryptedMessage = [] //array com os números da mensagem descryptografada
+
+    const messageArray = messageToDecrypt.split("");
+    for (let i = 0; i < messageArray.length; i++) {
+        let x = Number(TABLECHARACTER.positive[messageArray[i]])
+            
+        if (hasKCorrespondentValue(x) == 0) {
+            if (getSelectedOption == 'option1') {
+                x = applyInInverseFunction(x)
+                decryptedMessage.push(x)
+            } else {
+                x = applyInInverseFunction(x)
+                decryptedMessage.push(x)
+            }
+        } else {
+            let k = hasKCorrespondentValue(x)
+            x = x + (221 * k)
+            x = applyInInverseFunction(x)
+            decryptedMessage.push(x)
+        }
+    }
+
+    result.innerHTML = decryptedMessage
+}
+    
+
+

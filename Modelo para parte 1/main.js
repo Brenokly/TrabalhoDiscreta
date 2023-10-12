@@ -7,6 +7,16 @@ const btnDecrypt = document.querySelector('.btnDecrypt')
 const functionLocation = document.getElementById('functionLocation')
 const result = document.getElementById('resultText')
 
+const errorMessage = (boolCheck, msg = "") => {
+    let textErro = document.getElementById('texto-erro');
+    if (boolCheck) {
+        textErro.style.visibility = 'visible';
+        textErro.innerHTML = msg;
+    } else {
+        textErro.style.visibility = 'hidden';
+    }
+}
+
 const getSelectedOption = () => {
     //get all radio inputs with the same name
     const functionChoice = document.querySelectorAll('input[name="options"]');
@@ -205,28 +215,17 @@ function generateSecondDegreeFunction() {
 
     functionLocation.innerHTML = secondDegreeFunction;
 
+    encryptSecondDegree(userInput.value)
 }
 
-const errorMessage = (boolCheck, msg = "") => {
-    let textErro = document.getElementById('texto-erro');
-    if (boolCheck) {
-        textErro.style.visibility = 'visible';
-        textErro.innerHTML = msg;
-    } else {
-        textErro.style.visibility = 'hidden';
-    }
-}
-
-// tabela de caracteres para criptografia
-// divididos por positivos e negativos
-const TABLECHARACTER = {
+const TABLECHARACTER = { //trocar a ordem dos key values para conteúdo
     positive: {
-        '\t': '0', ' ': '1', '!': '2', '"': '3', '#': '4', '$': '5', '%': '6', '&': '7', '\'': '8', '(': '9',
-        ')': '10', '*': '11', '+': '12', ',': '13', '-': '14', '.': '15', '/': '16', '0': '17', '1': '18', '2': '19', '3': '20',
-        '4': '21', '5': '22', '6': '23', '7': '24', '8': '25', '9': '26', ':': '27', ';': '28', '<': '29',
-        '=': '30', '>': '31', '?': '32', '@': '33', 'A': '34', 'B': '35', 'C': '36', 'D': '37', 'E': '38', 'F': '39',
-        'G': '40', 'H': '41', 'I': '42', 'J': '43', 'K': '44', 'L': '45', 'M': '46', 'N': '47', 'O': '48',
-        'P': '49', 'Q': '50', 'R': '51', 'S': '52', 'T': '53', 'U': '54', 'V': '55', 'W': '56', 'X': '57', 'Y': '58', 'Z': '59',
+        '\t': '0', ' ': '1', '!': '2', '"': '3', '#': '4', '$': '5', '%': '6', '&': '7', '\'': '8', '(': '9', ')': '10', '*': '11',
+        '+': '12', ',': '13', '-': '14', '.': '15', '/': '16', '0': '17', '1': '18', '2': '19', '3': '20', '4': '21', '5': '22',
+        '6': '23', '7': '24', '8': '25', '9': '26', ':': '27', ';': '28', '<': '29', '=': '30', '>': '31',
+        '?': '32', '@': '33', 'A': '34', 'B': '35', 'C': '36', 'D': '37', 'E': '38', 'F': '39',
+        'G': '40', 'H': '41', 'I': '42', 'J': '43', 'K': '44', 'L': '45', 'M': '46', 'N': '47', 'O': '48', 'P': '49', 'Q': '50',
+        'R': '51', 'S': '52', 'T': '53', 'U': '54', 'V': '55', 'W': '56', 'X': '57', 'Y': '58', 'Z': '59',
         '[': '60', '/': '61', ']': '62', '^': '63', '_': '64', '`': '65', 'a': '66', 'b': '67', 'c': '68', 'd': '69', 'e': '70',
         'f': '71', 'g': '72', 'h': '73', 'i': '74', 'j': '75', 'k': '76', 'l': '77', 'm': '78', 'n': '79', 'o': '80', 'p': '81',
         'q': '82', 'r': '83', 's': '84', 't': '85', 'u': '86', 'v': '87', 'w': '88', 'x': '89', 'y': '90', 'z': '91', '{': '92',
@@ -245,7 +244,7 @@ const TABLECHARACTER = {
         '·': '214', '¸': '215', '¹': '216', '³': '217', '²': '218', '■': '219', '▒': '220', '▓': '221'
     },
     negative: {
-        '\t': '0', ' ': '-1', '!': '-2', '"': '-3', '#': '-4', '$': '-5', '%': '-6', '&': '-7', '\'': '-8', '(': '-9',
+        ' ': '-1', '!': '-2', '"': '-3', '#': '-4', '$': '-5', '%': '-6', '&': '-7', '\'': '-8', '(': '-9',
         ')': '-10', '*': '-11', '+': '-12', ',': '-13', '-': '-14', '.': '-15', '/': '-16', '0': '-17', '1': '-18', '2': '-19', '3': '-20',
         '4': '-21', '5': '-22', '6': '-23', '7': '-24', '8': '-25', '9': '-26', ':': '-27', ';': '-28', '<': '-29',
         '=': '-30', '>': '-31', '?': '-32', '@': '-33', 'A': '-34', 'B': '-35', 'C': '-36', 'D': '-37', 'E': '-38', 'F': '-39',
@@ -279,32 +278,52 @@ const encrypt = () => {
     }
 }
 
-const findK = () => {
-}
-
-const numberArrayToCharacterArray = (array) => {
-    let arrayToReturn = []
-
-    array.forEach((item) => {
-        if (item > 0) {
-            arrayToReturn.push(TABLECHARACTER.positive[item])
-        } else {
-            arrayToReturn.push(TABLECHARACTER.negative[item])
+function findK (number) { //checar se está certo
+    let k = 0;
+    let newNumber = 0;
+    if (number < 0) {
+        while (newNumber < 0) {
+            newNumber = number + (221 * k);
+            k++;
         }
-    });
-
-    return arrayToReturn
+    } else {
+        while (newNumber > 221) {
+            newNumber = number - (221 * k);
+            k++;
+        }
+    }
+    return newNumber;
 }
 
-function encryptFirstDegree(messageToEncrypt) { //recebe um array de caracteres para criptografar
+const
+    numberArrayToCharacterArray = (array) => {
+    let characterArray = [];
+    for (let i = 0; i < array.length; i++) {
+        let character = "";
+        if (array[i] < 0 && array[i] > -222) { //TODO tablechar colection not working
+            //get equivalent value from TABLECHARACTER.negative
+            character = TABLECHARACTER.negative[array[i]];
+        } else if (array[i] >= 0 && array[i] < 222) {
+            //get equivalent value from TABLECHARACTER.positive
+            character = TABLECHARACTER.positive[array[i]];
+        }
+        characterArray.push(character);
+    }
+
+    result.innerHTML = characterArray.join("");
+
+    return characterArray;
+}
+
+const encryptFirstDegree = (messageToEncrypt) => { //recebe um array de caracteres para criptografar
     let encryptedMessage = [] //array para salvar a criptografia, salvará os numeros
         
-    //pecorre os array original com os caracetres
-    messageToEncrypt.forEach((item) => {
+    //pecorre os array original com os caracteres
+    const messageArray = messageToEncrypt.split("");
+    for (let i = 0; i < messageArray.length; i++) {
         //cálculo para achar o número da criptografia ax + b
-        const x = Number(TABLECHARACTER.positive[item])
+        const x = Number(TABLECHARACTER.positive[messageArray[i]])
         const number = (Number(a.value) * x + Number(b.value)) //transforma o caractere em numero e aplica a função
-
         //verifica se está entre o range dos caracteres
         if (number >= 0 && number <= 221) {
             //salva o novo char no array
@@ -314,10 +333,23 @@ function encryptFirstDegree(messageToEncrypt) { //recebe um array de caracteres 
             const newNumber = findK(number)
             encryptedMessage.push(newNumber)
         }
-    });
-    
-    result.innerHTML = 'Olá mundo'
-    //result.innerHTML = numberArrayToCharacterArray(encryptedMessage)
+        encryptedMessage.forEach(element => {
+            console.log(getKeyByValue(TABLECHARACTER.positive, String(element)))
+        });
+        
+    }
+
+    //result.innerHTML = 
+    result.innerHTML = numberArrayToCharacterArray(encryptedMessage)
+}
+
+function getKeyByValue(object, value) {
+    for (var key in object) {
+        if (object[key] === value) {
+            console.log(key)
+            return key;
+        }
+    }
 }
 
 function encryptSecondDegree(messageToEncrypt) { //recebe um array de caracteres para criptografar

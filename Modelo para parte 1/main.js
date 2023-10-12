@@ -279,19 +279,25 @@ const encrypt = () => {
 }
 
 function findK (number) { //checar se está certo
-    if (number < 0) {
-        while (newNumber < 0) {
-            newNumber = number + (221 * k);
-            k++;
-        }
-    } else {
-        while (newNumber > 221) {
-            newNumber = number - (221 * k);
-            k++;
-        }
+    let newNumber = number;
+    let k = 0;
+
+    if (newNumber < 0) {
+        newNumber = newNumber * -1;
+    }  
+
+    while (Number.isInteger(newNumber - 221) && (newNumber - 221) > 0) {
+        newNumber = newNumber - 221;
+        k++;
     }
+
     return newNumber;
 }
+
+//testar findk
+let numberk = 0;
+numberk = findK(222);
+console.log(numberk);
 
 const numberArrayToCharacterArray = (array) => {
     let characterArray = [];
